@@ -11,7 +11,8 @@ import javafx.event.EventTarget;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,7 +26,7 @@ public class LoginScene extends GridPane{
     final TextField pin = new TextField();
     final Button signIn = new Button("Sign In");
     final Button createAccount = new Button("Create Account");
-    final Text label1 = new Text("Welcome to the international bank of froilan");
+    final Text label1 = new Text("Welcome To The International Bank Of Froilan");
     final Text label2 = new Text("or");
     final Text errorText = new Text();
 

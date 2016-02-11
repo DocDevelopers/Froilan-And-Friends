@@ -117,7 +117,7 @@ public class CreateAccountScene extends GridPane {
 
         //SET LABELS
         backButton.setOnAction(event -> {
-            application.goBack();
+            application.loadLogin();
         });
 
         this.setConstraints(backButton,1, 5);

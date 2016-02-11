@@ -1,0 +1,43 @@
+<html><head>
+  <SCRIPT src="http://java.com/js/dtjava.js"></SCRIPT>
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'ATM.jnlp'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbedATM_id() {
+        dtjava.embed(
+            {
+                id : 'ATM_id',
+                url : 'ATM.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '600',
+                height : '600'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbedATM_id);
+</script>
+
+</head><body>
+<h2>Test page for <b>ATM</b></h2>
+  <b>Webstart:</b> <a href='ATM.jnlp' onclick="return launchApplication('ATM.jnlp');">click to launch this app as webstart</a><br><hr><br>
+
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body></html>

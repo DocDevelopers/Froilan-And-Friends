@@ -4,7 +4,8 @@ import io.froilanandfriends.atm.UserManager;
 import io.froilanandfriends.atm.ui.scenes.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class AtmGuiApplication extends Application{
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
 
+
         window.setOnCloseRequest(e -> {
             e.consume();                                    //Tells the system to consume the .setOnCloseRequest method, and it will be handled by the closeProgram method.
             ErrorMessages.closeProgram(window);               //Will run closeProgram() if the red 'X' button is clicked.
 
         });
+
 
         window.setTitle("International Bank Of Frolian");
         switchStage(new Scene(new LoginScene(this), 600, 600));
@@ -51,9 +54,17 @@ public class AtmGuiApplication extends Application{
         switchStage(new Scene(new DepositScene(this), 600, 600));
     }
 
-    public void loadWithdraw(){ switchStage(new Scene(new Withdrawal(this), 600, 600)); }
+    public void loadLogin(){
+        switchStage(new Scene(new LoginScene(this), 600, 600));
+    }
 
-    public void loadTransfer(){ switchStage(new Scene(new Transfer(this), 600, 600));}
+    public void loadWithdraw(){
+        switchStage(new Scene(new Withdrawal(this), 600, 600));
+    }
+
+    public void loadTransfer(){
+        switchStage(new Scene(new Transfer(this), 600, 600));
+    }
 
     public void loadTransactions(){
         switchStage(new Scene(new TransactionScene(this), 600, 600));
@@ -89,24 +100,13 @@ public class AtmGuiApplication extends Application{
 
     //If page should no longer be available... Remove it from the stack
     private void removeLastFromStack(){
-        if(stack.size() > 1){
+        if(stack.size() > 0 ){
             stack.remove(stack.size()-1);
         }
     }
 
     public void goBack(){
-        if(stack.size() > 1){
-            //Show the page before the one we are on
-            Scene onTop = stack.get(stack.size()-2);
-
-            //If useraccountspage, relaod page.
-            if(onTop.getRoot() instanceof UserAccountsScene){
-                onTop = new Scene(new UserAccountsScene(this), 600, 600);
-            }
-            //Remove the top page
-            stack.remove(stack.size()-1);
-            window.setScene(onTop);
-        }
+      loadAccount();
     }
 
 }

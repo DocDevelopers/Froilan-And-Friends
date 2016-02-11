@@ -28,7 +28,7 @@ public class AccountScene extends GridPane{
     final Button transferButton = new Button("Transfer");
     final Button viewTransButton = new Button("View Transactions");
     final Button closeAccountButton = new Button("Close Account");
-    final Button backButton = new Button("Go Back");
+    final Button backButton = new Button("Go Back To Accounts");
     VBox actionsContainer;
 
     final EventHandler<ActionEvent> depositAction = new EventHandler<ActionEvent>() {
@@ -80,7 +80,7 @@ public class AccountScene extends GridPane{
     private void init(){
 
         backButton.setOnAction( event -> {
-            application.goBack();
+            application.loadAccountsPage();
         });
 
         ObservableList list = this.getChildren();
