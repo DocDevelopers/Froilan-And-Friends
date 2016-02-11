@@ -54,7 +54,13 @@ public class CreateAccountScene extends GridPane {
     public void createAccount(){
         if(validateInput()){
             UserManager um = UserManager.getUserManager();
-            um.addUser(username.getText(),firstName.getText(),lastName.getText(),email.getText(),Integer.parseInt(pin.getText()),securityQuestion.getText(),securityAnswer.getText());
+            try {
+                um.addUser(username.getText(), firstName.getText(), lastName.getText(), email.getText(), Integer.parseInt(pin.getText()), securityQuestion.getText(), securityAnswer.getText());
+            }catch (Exception e){
+                errorText.setText("Something went worng! Please call (267)-346-2003. error: DB ERROR");
+                return;
+            }
+
             um.setCurrentUser(um.getUser(username.getText()));
             application.loadAccountsPage();
         }

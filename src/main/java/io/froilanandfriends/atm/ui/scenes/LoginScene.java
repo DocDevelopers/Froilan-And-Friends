@@ -105,7 +105,7 @@ public class LoginScene extends GridPane{
         }
 
         Authenticator auth = Authenticator.getAuthenticator();
-        boolean authenticated = auth.authenticate(username.getText(), numberPin);
+        boolean authenticated = auth.authenticate(username.getText().toString(), numberPin);
 
         if(authenticated){
 
