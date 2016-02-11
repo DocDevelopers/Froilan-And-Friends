@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 public class UnFlagUserScene extends GridPane{
     AtmGuiApplication application;
     final Button flag = new Button("UnFlag This User");
-    final Label label = new Label("Enter the ID of the user you want to unflag");
+    final Label label = new Label("Enter the username of the user you want to unflag");
     final Button back = new Button("Back");
 
     final TextField setUser = new TextField();
@@ -42,8 +42,7 @@ public class UnFlagUserScene extends GridPane{
         setUser.setPromptText("User ID#");
 
         flag.setOnAction(e -> {
-            if(ErrorMessages.isInt(setUser, "ID#")){
-            unFlagUser(setUser);}
+            unFlagUser(setUser);
         });
         back.setOnAction(e -> {
             application.loadAdminMenu();
@@ -56,7 +55,17 @@ public class UnFlagUserScene extends GridPane{
     }
     private void unFlagUser(TextField setUser) {
         UserManager um = UserManager.getUserManager();
-        User toUnFlagUser = um.getUserByID(Integer.parseInt(setUser.getText()));
+        User toUnFlagUser = um.getUser(setUser.getText());
+
+
+        if(toUnFlagUser != null){
+            um.flagUser(toUnFlagUser);
+            application.loadAdminMenu();
+        }else{
+            ErrorMessages.notNumAlert("This user does not exist!");
+            return;
+        }
+
         um.unFlagUser(toUnFlagUser);
         application.loadAdminMenu();
     }

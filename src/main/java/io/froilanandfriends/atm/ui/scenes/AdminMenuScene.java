@@ -56,7 +56,7 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(trayStatus, 0, 3);
         trayStatus.setOnAction(e -> {
-            
+
             ATM atm = ATM.getATM();
             HashMap<Integer, Integer> tray = atm.getWithdrawlTray();
 

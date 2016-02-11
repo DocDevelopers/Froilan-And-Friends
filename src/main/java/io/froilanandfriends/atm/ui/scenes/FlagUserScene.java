@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 public class FlagUserScene extends GridPane{
     AtmGuiApplication application;
     final Button flag = new Button("Flag This User");
-    final Label label = new Label("Enter the ID of the user you want to flag");
+    final Label label = new Label("Enter the username of the user you want to flag");
     final Button back = new Button("Back");
     final TextField setUser = new TextField();
 
@@ -40,8 +40,7 @@ public class FlagUserScene extends GridPane{
         setUser.setPromptText("User ID#");
 
         flag.setOnAction(e -> {
-            if(ErrorMessages.isInt(setUser, "ID#")){
-            flagUser(setUser);}
+            flagUser(setUser);
         });
 
         back.setOnAction(e -> {
@@ -53,8 +52,15 @@ public class FlagUserScene extends GridPane{
     }
     private void flagUser(TextField setUser) {
         UserManager um = UserManager.getUserManager();
-        User toFlagUser = um.getUserByID(Integer.parseInt(setUser.getText()));
-        um.flagUser(toFlagUser);
-        application.loadAdminMenu();
+        User toFlagUser = um.getUser(setUser.getText());
+
+        if(toFlagUser != null){
+            um.flagUser(toFlagUser);
+            application.loadAdminMenu();
+        }else{
+            ErrorMessages.notNumAlert("This user does not exist!");
+            return;
+        }
+
     }
 }
