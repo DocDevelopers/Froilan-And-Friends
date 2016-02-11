@@ -57,11 +57,11 @@ public class CreateAccountScene extends GridPane {
         if(validateInput()){
             UserManager um = UserManager.getUserManager();
             try {
-                if(Authenticator.getAuthenticator().validateUser(username.getText()) == null)
-                    um.addUser(username.getText(), firstName.getText(), lastName.getText(), email.getText(), Integer.parseInt(pin.getText()), securityQuestion.getText(), securityAnswer.getText());
-                else{
-                    errorText.setText("This username is already taken");
-                    return;
+                if(Authenticator.getAuthenticator().validateUser(username.getText()) == null) {
+                    um.addUser(username.getText(), firstName.getText(), lastName.getText(), email.getText(), Integer.parseInt(pin.getText()), securityQuestion.getText(), securityAnswer.getText());}
+                    else {
+                        errorText.setText("This username is already taken");
+                        return;
                 }
             }catch (Exception e){
                 errorText.setText("Something went wrong! Please call (267)-346-2003. error: DB ERROR");
@@ -81,6 +81,7 @@ public class CreateAccountScene extends GridPane {
             errorText.setText("Please fill in all fields");
             return false;
         }
+
 
         //Make sure pin is an int
         try{
