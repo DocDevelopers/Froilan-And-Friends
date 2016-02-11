@@ -267,13 +267,13 @@ public class UserInterface {
             userInput=promptForText("Enter a valid account type: ").toLowerCase();
         }
         if(userInput.equals("c")){
-            am.createAccount(AccountType.CHECKING);
+            am.createAccount(Account.AccountType.CHECKING);
         }
         else if(userInput.equals("s")){
-            am.createAccount(AccountType.SAVINGS);
+            am.createAccount(Account.AccountType.SAVINGS);
         }
         else {
-            am.createAccount(AccountType.BUSINESS);
+            am.createAccount(Account.AccountType.BUSINESS);
         }
         ArrayList<Account> allAccounts = am.getAllAccounts();
         am.switchAccount(allAccounts.get(allAccounts.size()-1).getId());

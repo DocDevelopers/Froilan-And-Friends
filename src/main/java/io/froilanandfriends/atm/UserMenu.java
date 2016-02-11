@@ -2,6 +2,8 @@ package io.froilanandfriends.atm;
 
 import java.util.ArrayList;
 
+import static io.froilanandfriends.atm.Account.*;
+
 public class UserMenu {
 
     public static void userMenu(){
