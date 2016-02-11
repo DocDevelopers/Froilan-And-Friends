@@ -47,8 +47,17 @@ public class RestockTrayScene extends GridPane {
 
     }
     private void restockTray() {
-        int twen = Integer.parseInt(twenties.getText());
-        int ten = Integer.parseInt(tens.getText());
+        int twen;
+        int ten;
+        
+        try {
+            twen = Integer.parseInt(twenties.getText());
+            ten = Integer.parseInt(tens.getText());
+        }catch (NumberFormatException e){
+            ErrorMessages.notNumAlert("Please enter numbers only");
+            return;
+        }
+
         ATM atm = ATM.getATM();
         atm.reloadWithdrawalTray(twen, ten);
         application.loadAdminMenu();

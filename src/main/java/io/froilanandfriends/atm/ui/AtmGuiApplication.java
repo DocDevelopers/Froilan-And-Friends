@@ -28,7 +28,7 @@ public class AtmGuiApplication extends Application{
         });
 
 
-        window.setTitle("International Bank Of Frolian");
+        window.setTitle("International Bank Of Froilan");
         switchStage(new Scene(new LoginScene(this), 600, 600));
 
         window.show();
