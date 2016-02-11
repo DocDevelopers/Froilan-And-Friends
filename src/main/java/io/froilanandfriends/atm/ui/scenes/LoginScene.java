@@ -30,6 +30,8 @@ public class LoginScene extends GridPane{
     final Text label2 = new Text("or");
     final Text errorText = new Text();
 
+    private UserManager userManager = UserManager.getUserManager();
+
     final EventHandler<ActionEvent> createAccountEvent = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -46,6 +48,12 @@ public class LoginScene extends GridPane{
 
     public LoginScene(AtmGuiApplication window){
         mApplication = window;
+        try{
+            userManager.loadUsers();
+        }catch (Exception e){
+
+        }
+
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(5);
         this.setHgap(5);
@@ -105,11 +113,12 @@ public class LoginScene extends GridPane{
         }
 
         Authenticator auth = Authenticator.getAuthenticator();
-        boolean authenticated = auth.authenticate(username.getText().toString(), numberPin);
+        boolean authenticated = auth.authenticate(username.getText(), numberPin);
 
         if(authenticated){
 
             UserManager um = UserManager.getUserManager();
+            
             um.setCurrentUser(um.getUser(username.getText()));
             loadUserAccounts();
         }

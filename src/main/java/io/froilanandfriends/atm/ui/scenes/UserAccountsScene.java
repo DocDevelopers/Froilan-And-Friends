@@ -48,6 +48,11 @@ public class UserAccountsScene extends GridPane {
 
     public UserAccountsScene(AtmGuiApplication window){
         application = window;
+        try{
+            accountManager.loadAccounts();
+        }catch (Exception e){
+
+        }
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(5);
         this.setHgap(5);
@@ -81,10 +86,10 @@ public class UserAccountsScene extends GridPane {
         this.setConstraints(label, 0,0);
 
         HBox box = new HBox(checkingBox,savingsBox, businessBox);
-        this.setConstraints(box, 0, 1);
+        this.setConstraints(box, 0, 2);
         list.add(box);
-        this.setConstraints(createAccount, 0, 2);
-        this.setConstraints(errorText, 0,3);
+        this.setConstraints(createAccount, 0, 3);
+        this.setConstraints(errorText, 0,4);
 
         list.add(createAccount);
         list.add(label);
