@@ -55,17 +55,31 @@ public class AtmGuiApplication extends Application{
     public void loadTransfer(){ switchStage(new Scene(new Transfer(this), 600, 600));}
 
     public void loadTransactions(){
-
+        switchStage(new Scene(new TransactionScene(this), 600, 600));
     }
 
     public void closeAccount(){
+        removeLastFromStack();
+        switchStage(new Scene(new UserAccountsScene(this), 600, 600));
 
+    }
+
+    //If page should no longer be available... Remove it from the stack
+    private void removeLastFromStack(){
+        if(stack.size() > 1){
+            stack.remove(stack.size()-1);
+        }
     }
 
     public void goBack(){
         if(stack.size() > 1){
             //Show the page before the one we are on
             Scene onTop = stack.get(stack.size()-2);
+
+            //If useraccountspage, relaod page.
+            if(onTop.getRoot() instanceof UserAccountsScene){
+                onTop = new Scene(new UserAccountsScene(this), 600, 600);
+            }
             //Remove the top page
             stack.remove(stack.size()-1);
             window.setScene(onTop);

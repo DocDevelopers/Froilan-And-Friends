@@ -1,7 +1,9 @@
 package io.froilanandfriends.atm.ui.scenes;
 
+import io.froilanandfriends.atm.ATM;
 import io.froilanandfriends.atm.Account;
 import io.froilanandfriends.atm.AccountManager;
+import io.froilanandfriends.atm.TransactionManager;
 import io.froilanandfriends.atm.ui.AtmGuiApplication;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -65,9 +67,13 @@ public class DepositScene extends GridPane {
 
     private void depositMoney(){
         AccountManager accountManager = AccountManager.getAccountManager();
-        Account cAccount = accountManager.getCurrentAccount();
 
-        cAccount.deposit(Integer.parseInt(setDepositAmount.getText()));
+        accountManager.deposit(Integer.parseInt(setDepositAmount.getText()));
+
+        ATM atm =ATM.getATM();
+
+        atm.deposit(Integer.parseInt(setDepositAmount.getText()));
+
         application.loadAccount();
     }
 

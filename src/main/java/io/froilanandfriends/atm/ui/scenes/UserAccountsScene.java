@@ -24,6 +24,7 @@ public class UserAccountsScene extends GridPane {
     final Button createAccount = new Button("Create Bank Account");
     final Button viewAccount = new Button("View Account");
     final Text label = new Text();
+
     final Text errorText = new Text();
 
     EventHandler<ActionEvent> createAccountEvent = new EventHandler<ActionEvent>() {
@@ -45,13 +46,19 @@ public class UserAccountsScene extends GridPane {
     final RadioButton checkingBox = new RadioButton("Checking");
     final RadioButton savingsBox = new RadioButton("Savings");
     final RadioButton businessBox = new RadioButton("Business");
-
+    private static boolean firstStart = true;
     public UserAccountsScene(AtmGuiApplication window){
         application = window;
-        try{
-            accountManager.loadAccounts();
-        }catch (Exception e){
+        if(firstStart) {
 
+
+            try {
+
+                accountManager.loadAccounts();
+            } catch (Exception e) {
+
+            }
+            firstStart = false;
         }
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(5);
@@ -60,6 +67,7 @@ public class UserAccountsScene extends GridPane {
     }
 
     public void init(){
+
 
         checkingBox.setToggleGroup(toggleGroup);
         savingsBox.setToggleGroup(toggleGroup);
@@ -89,11 +97,12 @@ public class UserAccountsScene extends GridPane {
         this.setConstraints(box, 0, 2);
         list.add(box);
         this.setConstraints(createAccount, 0, 3);
-        this.setConstraints(errorText, 0,4);
+        this.setConstraints(errorText, 0,5);
 
         list.add(createAccount);
         list.add(label);
         list.add(errorText);
+
         createAccount.setOnAction(createAccountEvent);
 
 
