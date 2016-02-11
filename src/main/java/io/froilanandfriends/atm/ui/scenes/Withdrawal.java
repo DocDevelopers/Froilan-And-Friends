@@ -62,10 +62,20 @@ public class Withdrawal extends GridPane {
     private void withdrawMoney(){
         AccountManager accountManager = AccountManager.getAccountManager();
         ATM atm = ATM.getATM();
+        int amount = Integer.parseInt(setWithdrawalAmount.getText());
 
-        atm.withdraw(Integer.parseInt(setWithdrawalAmount.getText()));
-        accountManager.withdrawl(Integer.parseInt(setWithdrawalAmount.getText()));
+        if (!(atm.getATMBalance() <= amount) && !(accountManager.getCurrentAccount().getBalance() <= amount)) {
+            atm.withdraw(amount);
+            accountManager.withdrawl(amount);
+        } else if ((accountManager.getCurrentAccount().getBalance() < amount) &&  !(atm.getATMBalance() < amount)) {
+            ErrorMessages.notNumAlert("You do not have sufficient funds to withdraw this amount.");
+        } else if (!(accountManager.getCurrentAccount().getBalance() < amount) &&  (atm.getATMBalance() < amount)) {
+            ErrorMessages.notNumAlert("The atm does not have sufficient funds to withdraw this amount.");
+        } else {
+            ErrorMessages.notNumAlert("This ATM is out of service. Please try again later.");
+        }
         application.loadAccount();
+
     }
 
     private void onBack(){

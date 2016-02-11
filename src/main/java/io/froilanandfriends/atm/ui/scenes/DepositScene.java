@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 public class DepositScene extends GridPane {
     final Label depositAmount = new Label("Deposit Amount");
     final TextField setDepositAmount = new TextField();
-    final Label numBills = new Label("How many bills?");
     final Button depositButton = new Button("Confirm Deposit");
     final Button backButton = new Button("Go Back");
     AtmGuiApplication application;
@@ -33,23 +32,17 @@ public class DepositScene extends GridPane {
         //Deposit Amount
 
         this.setConstraints(depositAmount, 0, 0);
-
         setDepositAmount.setPromptText("Enter amount to deposit");
         this.setConstraints(setDepositAmount, 1, 0);
 
-        //Number of Bills
 
-        this.setConstraints(numBills, 0, 1);
-        TextField setNumBills = new TextField();
-        setNumBills.setPromptText("Enter number of bills");
-        this.setConstraints(setNumBills, 1, 1);
 
         //Deposit Button
 
-        this.setConstraints(depositButton, 1, 2);
+        this.setConstraints(depositButton, 1, 1);
 
         depositButton.setOnAction(e -> {
-            if(ErrorMessages.isInt(setDepositAmount, setNumBills, "deposit")){
+            if(ErrorMessages.isInt(setDepositAmount, "deposit")){
                 depositMoney();
             }
         });
@@ -60,7 +53,7 @@ public class DepositScene extends GridPane {
 
         this.setConstraints(backButton, 0, 6);
 
-        this.getChildren().addAll(depositAmount, setDepositAmount, numBills, setNumBills, depositButton, backButton);
+        this.getChildren().addAll(depositAmount, setDepositAmount, depositButton, backButton);
     }
 
     private void depositMoney(){

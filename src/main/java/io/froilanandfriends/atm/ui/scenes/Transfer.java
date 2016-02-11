@@ -69,7 +69,11 @@ public class Transfer extends GridPane {
         long accntNum = Long.parseLong(setAccntID.getText());
         long xferAmount = Integer.parseInt(setXferAmount.getText());
 
-        accountManager.transfer(accntNum, xferAmount);
+      if ((accountManager.getCurrentAccount().getBalance() < xferAmount)) {
+            ErrorMessages.notNumAlert("You do not have sufficient funds to transfer this amount.");
+        } else {
+          accountManager.transfer(accntNum, xferAmount);
+        }
         application.loadAccount();
     }
 
