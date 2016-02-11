@@ -75,7 +75,6 @@ public class AtmGuiApplication extends Application{
     public void loadCollectDeposits() {
         switchStage(new Scene(new CollectDepositsScene(this), 600, 600));
     }
-
     public void loadRestockTray() {
         switchStage(new Scene(new RestockTrayScene(this), 600, 600));
     }

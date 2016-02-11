@@ -51,7 +51,7 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(trayStatus, 0, 3);
         trayStatus.setOnAction(e -> {
-           // application.loadTrayStatus();
+
 
 
         });
@@ -69,7 +69,7 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(userLoginMenu, 0, 6);
         userLoginMenu.setOnAction(e -> {
-
+            application.loadLogin();
 
         });
 
