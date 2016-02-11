@@ -10,9 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-/**
- * Created by Kyle on 2/11/16.
- */
+
 public class CollectDepositsScene extends GridPane{
     AtmGuiApplication application;
     final Button button = new Button("Collect Deposits");
@@ -38,11 +36,12 @@ public class CollectDepositsScene extends GridPane{
         });
 
 
-        this.getChildren().addAll(label);
+        this.getChildren().addAll(label, button);
 
 
     }
     private void collectDeposits() {
+        ErrorMessages.notNumAlert("Deposits tray ready to be emptied. \n      Tray Set to $0.00");
         ATM atm = ATM.getATM();
         atm.emptyDepositTray();
         application.loadAdminMenu();

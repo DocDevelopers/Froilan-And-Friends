@@ -18,6 +18,8 @@ public class UnFlagUserScene extends GridPane{
     AtmGuiApplication application;
     final Button flag = new Button("UnFlag This User");
     final Label label = new Label("Enter the ID of the user you want to unflag");
+    final Button back = new Button("Back");
+
     final TextField setUser = new TextField();
 
 
@@ -35,14 +37,20 @@ public class UnFlagUserScene extends GridPane{
         GridPane.setConstraints(label, 0, 0);
         GridPane.setConstraints(setUser, 0, 2);
         GridPane.setConstraints(flag, 0, 3);
+        GridPane.setConstraints(back, 0, 6);
+
         setUser.setPromptText("User ID#");
 
         flag.setOnAction(e -> {
-            unFlagUser(setUser);
+            if(ErrorMessages.isInt(setUser, "ID#")){
+            unFlagUser(setUser);}
+        });
+        back.setOnAction(e -> {
+            application.loadAdminMenu();
         });
 
 
-        this.getChildren().addAll(label, setUser, flag);
+        this.getChildren().addAll(label, setUser, flag, back);
 
 
     }

@@ -56,6 +56,7 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(trayStatus, 0, 3);
         trayStatus.setOnAction(e -> {
+            
             ATM atm = ATM.getATM();
             HashMap<Integer, Integer> tray = atm.getWithdrawlTray();
 
@@ -63,7 +64,6 @@ public class AdminMenuScene extends GridPane {
             int tens = tray.get(10);
 
             ErrorMessages.notNumAlert("Tray Status: Twenties : "+ twenties +" Tens : "+ tens+ " Total Bills : "+(twenties+tens)+"\n MAX CAPACITY: 2,000 BILLS");
-
 
         });
         GridPane.setConstraints(flagUser, 0, 4);
@@ -80,7 +80,7 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(userLoginMenu, 0, 6);
         userLoginMenu.setOnAction(e -> {
-
+            application.loadLogin();
 
         });
 

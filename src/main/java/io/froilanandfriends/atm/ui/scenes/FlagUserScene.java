@@ -18,6 +18,7 @@ public class FlagUserScene extends GridPane{
     AtmGuiApplication application;
     final Button flag = new Button("Flag This User");
     final Label label = new Label("Enter the ID of the user you want to flag");
+    final Button back = new Button("Back");
     final TextField setUser = new TextField();
 
 
@@ -35,15 +36,19 @@ public class FlagUserScene extends GridPane{
         GridPane.setConstraints(label, 0, 0);
         GridPane.setConstraints(setUser, 0, 2);
         GridPane.setConstraints(flag, 0, 3);
+        GridPane.setConstraints(back, 0, 6);
         setUser.setPromptText("User ID#");
 
         flag.setOnAction(e -> {
-            flagUser(setUser);
+            if(ErrorMessages.isInt(setUser, "ID#")){
+            flagUser(setUser);}
         });
 
+        back.setOnAction(e -> {
+           application.loadAdminMenu();
+        });
 
-        this.getChildren().addAll(label, setUser, flag);
-
+        this.getChildren().addAll(label, setUser, flag, back);
 
     }
     private void flagUser(TextField setUser) {
