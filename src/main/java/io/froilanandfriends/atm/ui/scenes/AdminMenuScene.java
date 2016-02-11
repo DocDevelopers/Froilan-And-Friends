@@ -1,6 +1,7 @@
 package io.froilanandfriends.atm.ui.scenes;
 
 
+import io.froilanandfriends.atm.ATM;
 import io.froilanandfriends.atm.AccountManager;
 import io.froilanandfriends.atm.UserManager;
 import io.froilanandfriends.atm.ui.AtmGuiApplication;
@@ -11,6 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import java.util.HashMap;
+
 public class AdminMenuScene extends GridPane {
 
     private AccountManager accountManager = AccountManager.getAccountManager();
@@ -20,6 +23,8 @@ public class AdminMenuScene extends GridPane {
     final Button flagUser = new Button("Flag User");
     final Button unFlagUser = new Button("UnFlag User");
     final Button userLoginMenu = new Button("User Login Menu");
+    final Button showTrans = new Button("Show Transactions");
+    final Button showFlagged = new Button("Show Flagged Users");
     final Label adminMessage = new Label("ADMIN Menu");
 
     AtmGuiApplication application;
@@ -51,7 +56,13 @@ public class AdminMenuScene extends GridPane {
         });
         GridPane.setConstraints(trayStatus, 0, 3);
         trayStatus.setOnAction(e -> {
-           // application.loadTrayStatus();
+            ATM atm = ATM.getATM();
+            HashMap<Integer, Integer> tray = atm.getWithdrawlTray();
+
+            int twenties = tray.get(20);
+            int tens = tray.get(10);
+
+            ErrorMessages.notNumAlert("Tray Status: Twenties : "+ twenties +" Tens : "+ tens+ " Total Bills : "+(twenties+tens)+"\n MAX CAPACITY: 2,000 BILLS");
 
 
         });
@@ -73,11 +84,20 @@ public class AdminMenuScene extends GridPane {
 
         });
 
+        GridPane.setConstraints(showTrans, 0, 7);
+        showTrans.setOnAction(event -> {
+            application.loadAllTransactions();
+        });
+
+        GridPane.setConstraints(showFlagged, 0, 8);
+        showFlagged.setOnAction(event -> {
+            application.loadAllFlagged();
+        });
 
 
 
 
-        this.getChildren().addAll(adminMessage, collectDeposits, restockTray, trayStatus, flagUser, unFlagUser, userLoginMenu);
+        this.getChildren().addAll(adminMessage, collectDeposits, restockTray, trayStatus, flagUser, unFlagUser, userLoginMenu, showTrans, showFlagged);
 
     }
 

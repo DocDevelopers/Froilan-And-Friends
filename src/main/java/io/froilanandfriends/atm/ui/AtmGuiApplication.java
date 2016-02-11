@@ -86,6 +86,13 @@ public class AtmGuiApplication extends Application{
         switchStage(new Scene(new UnFlagUserScene(this), 600, 600));
     }
 
+    public void loadAllTransactions(){
+        switchStage(new Scene(new ShowAllTransactionsScene(this), 600, 600));
+    }
+
+    public void loadAllFlagged(){
+        switchStage(new Scene(new ShowAllFlaggedScene(this),600, 600));
+    }
     public void closeAccount(){
         removeLastFromStack();
         switchStage(new Scene(new UserAccountsScene(this), 600, 600));
