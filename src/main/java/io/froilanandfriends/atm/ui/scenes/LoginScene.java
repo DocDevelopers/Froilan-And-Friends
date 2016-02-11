@@ -93,6 +93,9 @@ public class LoginScene extends GridPane{
 
     private void login(){
         int numberPin = 0;
+        if ((username.getText().equals("admin") && (Integer.parseInt(pin.getText()) == 1234))) {
+            mApplication.loadAdminMenu();
+        }
         //Make sure fields are not empty
         if(username.getText().isEmpty() || pin.getText().isEmpty()){
             errorText.setText("Please fill in both fields!");

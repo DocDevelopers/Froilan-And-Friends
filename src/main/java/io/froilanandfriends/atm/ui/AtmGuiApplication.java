@@ -69,6 +69,22 @@ public class AtmGuiApplication extends Application{
     public void loadTransactions(){
         switchStage(new Scene(new TransactionScene(this), 600, 600));
     }
+    public void loadAdminMenu() {
+        switchStage(new Scene(new AdminMenuScene(this), 600, 600));
+    }
+    public void loadCollectDeposits() {
+        switchStage(new Scene(new CollectDepositsScene(this), 600, 600));
+    }
+
+    public void loadRestockTray() {
+        switchStage(new Scene(new RestockTrayScene(this), 600, 600));
+    }
+    public void loadFlagUser() {
+        switchStage(new Scene(new FlagUserScene(this), 600, 600));
+    }
+    public void loadUnFlagUser() {
+        switchStage(new Scene(new UnFlagUserScene(this), 600, 600));
+    }
 
     public void closeAccount(){
         removeLastFromStack();
