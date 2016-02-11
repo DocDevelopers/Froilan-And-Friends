@@ -23,6 +23,8 @@ public class UserAccountsScene extends GridPane {
     final ComboBox comboBox = new ComboBox();
     final Button createAccount = new Button("Create Bank Account");
     final Button viewAccount = new Button("View Account");
+    final Button logout = new Button("Logout");
+
     final Text label = new Text();
 
     final Text errorText = new Text();
@@ -68,14 +70,18 @@ public class UserAccountsScene extends GridPane {
 
     public void init(){
 
+        logout.setOnAction(event -> {
+            application.logOut();
+        });
 
+        this.setConstraints(logout, 1, 3);
         checkingBox.setToggleGroup(toggleGroup);
         savingsBox.setToggleGroup(toggleGroup);
         businessBox.setToggleGroup(toggleGroup);
 
         ObservableList list = this.getChildren();
 
-
+        list.add(logout);
         if(getUsersAccounts() != null && getUsersAccounts().size() > 0){
             label.setText("Please select your account from the drop-down or create a new one");
             populateComboBox();

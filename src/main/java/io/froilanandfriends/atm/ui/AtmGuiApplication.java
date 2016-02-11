@@ -1,5 +1,6 @@
 package io.froilanandfriends.atm.ui;
 
+import io.froilanandfriends.atm.UserManager;
 import io.froilanandfriends.atm.ui.scenes.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -62,6 +63,12 @@ public class AtmGuiApplication extends Application{
         removeLastFromStack();
         switchStage(new Scene(new UserAccountsScene(this), 600, 600));
 
+    }
+
+    public void logOut(){
+        UserManager.getUserManager().clearUser();
+        stack.clear();
+        switchStage(new Scene(new LoginScene(this), 600, 600));
     }
 
     //If page should no longer be available... Remove it from the stack

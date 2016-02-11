@@ -148,11 +148,12 @@ public class AccountScene extends GridPane{
             am.deleteAccount(currentAccount.getId());
 
             if(currentAccount.getBalance() != 0)
-                ErrorMessages.display("You will receive a check in the mail for "+currentAccount.getBalance()+" in the next 7 business days.");
+                ErrorMessages.notNumAlert("You will receive a check in the mail for "+currentAccount.getBalance()+" in the next 7 business days.");
+            application.closeAccount();
+
         }
 
 
 
-        application.closeAccount();
     }
 }

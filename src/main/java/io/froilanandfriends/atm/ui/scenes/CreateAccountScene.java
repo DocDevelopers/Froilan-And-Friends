@@ -37,6 +37,7 @@ public class CreateAccountScene extends GridPane {
     final Button createButton = new Button();
     final Text label = new Text();
     final Text errorText = new Text();
+    final Button backButton = new Button("back");
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -63,7 +64,7 @@ public class CreateAccountScene extends GridPane {
                     return;
                 }
             }catch (Exception e){
-                errorText.setText("Something went worng! Please call (267)-346-2003. error: DB ERROR");
+                errorText.setText("Something went wrong! Please call (267)-346-2003. error: DB ERROR");
                 return;
             }
 
@@ -112,7 +113,14 @@ public class CreateAccountScene extends GridPane {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(5);
         this.setHgap(5);
+
         //SET LABELS
+        backButton.setOnAction(event -> {
+            application.goBack();
+        });
+
+        this.setConstraints(backButton,1, 5);
+
         label.setText("Fill out the form below to create an account");
 
         username.setPromptText("Enter your username");
@@ -147,6 +155,7 @@ public class CreateAccountScene extends GridPane {
         list.add(createButton);
         list.add(pin);
         list.add(errorText);
+        list.add(backButton);
 
     }
 

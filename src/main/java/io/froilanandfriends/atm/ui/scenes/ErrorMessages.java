@@ -21,7 +21,7 @@ public class ErrorMessages{
 
         Label label = new Label();
         label.setText(message);
-        Button closebutton = new Button("Close the Window");
+        Button closebutton = new Button("OK");
 
         closebutton.setOnAction(e -> window.close());
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * Created by Doc on 2/11/16.
  */
 public class TransactionScene extends GridPane {
+    private static boolean isFirst = true;
     final Text transactions = new Text();
     final Button backButton = new Button("Go Back");
     private AtmGuiApplication application;
@@ -20,10 +21,15 @@ public class TransactionScene extends GridPane {
 
     public TransactionScene(AtmGuiApplication window){
         application = window;
-        try{
-            transactionManager.loadTransactions();
-        }catch (Exception e){
+        if(isFirst) {
 
+
+            try {
+                transactionManager.loadTransactions();
+            } catch (Exception e) {
+
+            }
+            isFirst = false;
         }
 
         init();
