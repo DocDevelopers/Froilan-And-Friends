@@ -17,10 +17,9 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 
-/**
- * Created by Doc on 2/10/16.
- */
+
 public class LoginScene extends GridPane{
+
     private AtmGuiApplication mApplication;
     final TextField username = new TextField();
     final TextField pin = new TextField();
