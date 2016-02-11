@@ -5,7 +5,7 @@ import java.lang.StringBuilder;
 public class UserManager {
     private User currentUser;
     private ArrayList<User> allUsers = new ArrayList<User>();
-    private static final String PATHNAME = "userLog.csv";
+    private static String PATHNAME = "userLog.csv";
 
     //Singleton Setup
     private static UserManager current = new UserManager();
@@ -46,6 +46,9 @@ public class UserManager {
         currentUser = null;
     }
 
+    public static void setPATHNAME(String PATHNAME) {
+        UserManager.PATHNAME = PATHNAME;
+    }
 
     public void flagUser(User userToFlag){ //flags a user
         userToFlag.setFlagged();
@@ -88,9 +91,13 @@ public class UserManager {
     }
 
     //adds a user to the allusers list
-    public void addUser(String userName, String firstName, String lastName, String email, int pin, String securityQuestion, String secruityAnswer){
+    public void addUser(String userName, String firstName, String lastName, String email, int pin, String securityQuestion, String secruityAnswer) throws Exception {
         User newUser = new User(userName, firstName, lastName, email, pin, securityQuestion, secruityAnswer);
         allUsers.add(newUser);
+
+
+
+        logUsers();
 
     }
     //will remove specific user from list
