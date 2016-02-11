@@ -63,7 +63,7 @@ public class ErrorMessages{
         }
     }
 
-    public static boolean display( String message) {
+    public static boolean display(String message) {
         final Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);  //Blocks user from interacting with original window until they deal with this window first.

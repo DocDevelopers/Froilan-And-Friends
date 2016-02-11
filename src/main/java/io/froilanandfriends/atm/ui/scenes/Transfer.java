@@ -1,4 +1,7 @@
 package io.froilanandfriends.atm.ui.scenes;
+import io.froilanandfriends.atm.ATM;
+import io.froilanandfriends.atm.AccountManager;
+import io.froilanandfriends.atm.ui.AtmGuiApplication;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,70 +12,69 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-public class Transfer extends Application{
-    Stage window;
-    Button xferButton;
-    Button backButton;
+public class Transfer extends GridPane {
+    final Button xferButton = new Button("Confirm Transfer");
+    final Button backButton = new Button("Go Back");
+    final Label xferAmount = new Label("Transfer Amount");
+    final Label accntID = new Label("Account to transfer to: ");
+    final TextField setXferAmount = new TextField();
+    final TextField setAccntID = new TextField();
+    AtmGuiApplication application;
 
-    public static void main(String[] args) {
-        launch(args);
+
+    public Transfer(AtmGuiApplication window) {
+        application = window;
+        init();
     }
 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
-        window.setTitle("International Bank of Froilan");
+    private void init() {
 
-        GridPane layout = new GridPane();
-        layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.setVgap(20);
-        layout.setHgap(10);
+        this.setPadding(new Insets(10, 10, 10, 10));
+        this.setVgap(20);
+        this.setHgap(10);
 
-        //Withdrawal Amount
-        Label xferAmount = new Label("Transfer Amount");
+        //Xfer Amount
         GridPane.setConstraints(xferAmount, 0, 0);
-        TextField setXferAmount = new TextField();
         setXferAmount.setPromptText("Enter amount to transfer");
         GridPane.setConstraints(setXferAmount, 1, 0);
 
-        //Withdrawal Amount
-        Label accntID = new Label("Account to transfer to: ");
-        GridPane.setConstraints(xferAmount, 0, 1);
-        TextField setAccntID = new TextField();
+        //Account to Xfer to
+        GridPane.setConstraints(accntID, 0, 1);
         setAccntID.setPromptText("Account ID#");
         GridPane.setConstraints(setAccntID, 1, 1);
 
 
         //xferButton Button
-        xferButton = new Button("Confirm Transfer");
         GridPane.setConstraints(xferButton, 1, 2);
         xferButton.setOnAction(e -> {
-            ErrorMessages.isInt(setXferAmount, setAccntID, "transfer");
+            //if (ErrorMessages.isInt(setXferAmount, setAccntID, "transfer")) {
+                xferMoney();
+            //}
         });
 
 
         //Back Button
-        backButton = new Button("Go Back");
         GridPane.setConstraints(backButton, 0, 6);
         backButton.setOnAction(e -> {
-            //window.setScene();
-            System.out.println("Back button Pressed");
+            onBack();
         });
 
 
-        window.setOnCloseRequest(e -> {
-            e.consume();                                    //Tells the system to consume the .setOnCloseRequest method, and it will be handled by the closeProgram method.
-            ErrorMessages.closeProgram(window);               //Will run closeProgram() if the red 'X' button is clicked.
-        });
+        this.getChildren().addAll(xferAmount, setXferAmount, accntID, setAccntID, xferButton, backButton);
 
+    }
+    private void xferMoney(){
+        AccountManager accountManager = AccountManager.getAccountManager();
+        long accntNum = Long.parseLong(setAccntID.getText());
+        long xferAmount = Integer.parseInt(setXferAmount.getText());
 
+        accountManager.transfer(accntNum, xferAmount);
+        application.loadAccount();
+    }
 
-        layout.getChildren().addAll(xferAmount, setXferAmount, accntID, setAccntID,  xferButton, backButton);
-        Scene scene = new Scene(layout, 350, 250);
-        window.setScene(scene);
-        window.show();
-
+    private void onBack(){
+        application.goBack();
     }
 
 

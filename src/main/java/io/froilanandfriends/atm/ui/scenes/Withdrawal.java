@@ -1,5 +1,9 @@
 package io.froilanandfriends.atm.ui.scenes;
 
+import io.froilanandfriends.atm.ATM;
+import io.froilanandfriends.atm.Account;
+import io.froilanandfriends.atm.AccountManager;
+import io.froilanandfriends.atm.ui.AtmGuiApplication;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,63 +14,64 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-public class Withdrawal extends Application {
+public class Withdrawal extends GridPane {
 
-    Stage window;
-    Button withdrawalButton;
-    Button backButton;
+    final Button withdrawalButton = new Button("Confirm Withdrawal");
+    final Button backButton = new Button("Go Back");
+    final Label withdrawalAmount = new Label("Withdrawal Amount");
+    final TextField setWithdrawalAmount = new TextField();
+    AtmGuiApplication application;
 
-    public static void main(String[] args) {
-        launch(args);
+
+    public Withdrawal(AtmGuiApplication window){
+        application = window;
+        init();
     }
 
+    private void init() {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
-        window.setTitle("International Bank of Froilan");
-
-        GridPane layout = new GridPane();
-        layout.setPadding(new Insets(10, 10, 10, 10));
-        layout.setVgap(20);
-        layout.setHgap(10);
+        this.setPadding(new Insets(10, 10, 10, 10));
+        this.setVgap(20);
+        this.setHgap(10);
 
         //Withdrawal Amount
-        Label withdrawalAmount = new Label("Withdrawal Amount");
-        GridPane.setConstraints(withdrawalAmount, 0, 0);
-        TextField setWithdrawalAmount = new TextField();
+        this.setConstraints(withdrawalAmount, 0, 0);
         setWithdrawalAmount.setPromptText("Enter amount to withdraw");
-        GridPane.setConstraints(setWithdrawalAmount, 1, 0);
+        this.setConstraints(setWithdrawalAmount, 1, 0);
 
 
         //Withdrawal Button
-        withdrawalButton = new Button("Confirm Withdrawal");
-        GridPane.setConstraints(withdrawalButton, 1, 1);
-
-        //Back Button
-        backButton = new Button("Go Back");
-        GridPane.setConstraints(backButton, 0, 7);
-        backButton.setOnAction(e -> {
-            //window.setScene();
-            System.out.println("Back button Pressed");
-        });
+        this.setConstraints(withdrawalButton, 1, 1);
 
         withdrawalButton.setOnAction(e -> {
-            ErrorMessages.isInt(setWithdrawalAmount, "withdrawal");
+            if(ErrorMessages.isInt(setWithdrawalAmount, "withdrawal")) {
+                withdrawMoney();
+            }
         });
 
-        window.setOnCloseRequest(e -> {
-            e.consume();                                    //Tells the system to consume the .setOnCloseRequest method, and it will be handled by the closeProgram method.
-            ErrorMessages.closeProgram(window);               //Will run closeProgram() if the red 'X' button is clicked.
+        //Back Button
+        this.setConstraints(backButton, 0, 7);
+        backButton.setOnAction(e -> {
+            onBack();
         });
 
-
-        layout.getChildren().addAll(withdrawalAmount, setWithdrawalAmount, withdrawalButton, backButton);
-        Scene scene = new Scene(layout, 325, 250);
-        window.setScene(scene);
-        window.show();
+        this.getChildren().addAll(withdrawalAmount, setWithdrawalAmount, withdrawalButton, backButton);
 
     }
+
+    private void withdrawMoney(){
+        AccountManager accountManager = AccountManager.getAccountManager();
+        ATM atm = ATM.getATM();
+
+        atm.withdraw(Integer.parseInt(setWithdrawalAmount.getText()));
+        accountManager.withdrawl(Integer.parseInt(setWithdrawalAmount.getText()));
+        application.loadAccount();
+    }
+
+    private void onBack(){
+        application.goBack();
+    }
+
 
 }
 

@@ -40,9 +40,8 @@ public class AtmGuiApplication extends Application{
         switchStage(new Scene(new CreateAccountScene(this), 600, 600));
     }
 
-    public void loadAccountsPage(){
-        switchStage(new Scene(new UserAccountsScene(this), 600, 600));
-    }
+    public void loadAccountsPage(){ switchStage(new Scene(new UserAccountsScene(this), 600, 600)); }
+
     public void loadAccount(){
         switchStage(new Scene(new AccountScene(this), 600, 600));
     }
@@ -51,13 +50,9 @@ public class AtmGuiApplication extends Application{
         switchStage(new Scene(new DepositScene(this), 600, 600));
     }
 
-    public void loadWithdraw(){
+    public void loadWithdraw(){ switchStage(new Scene(new Withdrawal(this), 600, 600)); }
 
-    }
-
-    public void loadTransfer(){
-
-    }
+    public void loadTransfer(){ switchStage(new Scene(new Transfer(this), 600, 600));}
 
     public void loadTransactions(){
 
