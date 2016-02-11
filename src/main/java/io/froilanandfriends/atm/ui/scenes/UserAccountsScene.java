@@ -118,6 +118,12 @@ public class UserAccountsScene extends GridPane {
         int selectedIndex = comboBox.getSelectionModel().getSelectedIndex();
 
         //Get the id of the selected account and switch to that account
+        if(selectedIndex == -1){
+            errorText.setText("Please select an account.");
+            return;
+        }
+
+
         accountManager.switchAccount(getUsersAccounts().get(selectedIndex).getId());
 
         application.loadAccount();
