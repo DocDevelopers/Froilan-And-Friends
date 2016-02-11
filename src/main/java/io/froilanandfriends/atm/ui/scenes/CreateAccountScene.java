@@ -3,6 +3,7 @@ package io.froilanandfriends.atm.ui.scenes;
 /**
  * Created by Doc on 2/10/16.
  */
+import io.froilanandfriends.atm.Authenticator;
 import io.froilanandfriends.atm.UserManager;
 import io.froilanandfriends.atm.ui.AtmGuiApplication;
 import javafx.beans.Observable;
@@ -55,7 +56,12 @@ public class CreateAccountScene extends GridPane {
         if(validateInput()){
             UserManager um = UserManager.getUserManager();
             try {
-                um.addUser(username.getText(), firstName.getText(), lastName.getText(), email.getText(), Integer.parseInt(pin.getText()), securityQuestion.getText(), securityAnswer.getText());
+                if(Authenticator.getAuthenticator().validateUser(username.getText()) == null)
+                    um.addUser(username.getText(), firstName.getText(), lastName.getText(), email.getText(), Integer.parseInt(pin.getText()), securityQuestion.getText(), securityAnswer.getText());
+                else{
+                    errorText.setText("This username is already taken");
+                    return;
+                }
             }catch (Exception e){
                 errorText.setText("Something went worng! Please call (267)-346-2003. error: DB ERROR");
                 return;

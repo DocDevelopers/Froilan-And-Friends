@@ -25,7 +25,7 @@ public class Authenticator {
         return false;
     }
 
-    User validateUser(String userName) {
+    public User validateUser(String userName) {
         UserManager um = UserManager.getUserManager();
 
         User thisUser = um.getUser(userName);

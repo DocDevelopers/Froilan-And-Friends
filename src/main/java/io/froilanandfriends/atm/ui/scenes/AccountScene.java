@@ -2,6 +2,8 @@ package io.froilanandfriends.atm.ui.scenes;
 
 import io.froilanandfriends.atm.Account;
 import io.froilanandfriends.atm.AccountManager;
+import io.froilanandfriends.atm.UserManager;
+import io.froilanandfriends.atm.UserMenu;
 import io.froilanandfriends.atm.ui.AtmGuiApplication;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ public class AccountScene extends GridPane{
     final Button transferButton = new Button("Transfer");
     final Button viewTransButton = new Button("View Transactions");
     final Button closeAccountButton = new Button("Close Account");
+    final Button backButton = new Button("Go Back");
     VBox actionsContainer;
 
     final EventHandler<ActionEvent> depositAction = new EventHandler<ActionEvent>() {
@@ -75,6 +78,11 @@ public class AccountScene extends GridPane{
     }
 
     private void init(){
+
+        backButton.setOnAction( event -> {
+            application.goBack();
+        });
+
         ObservableList list = this.getChildren();
         setAccountHeaders();
 
@@ -92,6 +100,9 @@ public class AccountScene extends GridPane{
         list.add(accountHeader);
         list.add(balanceHeader);
         list.add(actionsContainer);
+
+        list.add(backButton);
+        this.setConstraints(backButton, 0,3);
 
 
 
@@ -122,6 +133,26 @@ public class AccountScene extends GridPane{
     }
 
     private void closeAccount(){
+        AccountManager am = AccountManager.getAccountManager();
+        Account currentAccount = am.getCurrentAccount();
+        UserManager un = UserManager.getUserManager();
+        if(currentAccount.getBalance()!=0){
+             boolean close =ErrorMessages.display("Closing your account will withdraw all available funds in the form of a mailed check.  Current Balance: "+currentAccount.getBalance()+" Still want to close?");
+            if(!close)
+                return;
+        }
+
+        boolean confirm =ErrorMessages.display("Are you sure?");
+
+        if(confirm){
+            am.deleteAccount(currentAccount.getId());
+
+            if(currentAccount.getBalance() != 0)
+                ErrorMessages.display("You will receive a check in the mail for "+currentAccount.getBalance()+" in the next 7 business days.");
+        }
+
+
+
         application.closeAccount();
     }
 }

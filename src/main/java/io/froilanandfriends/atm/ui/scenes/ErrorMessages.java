@@ -98,6 +98,36 @@ public class ErrorMessages{
         return answer;
 
     }
+
+    public static boolean displayError( String message) {
+        final Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);  //Blocks user from interacting with original window until they deal with this window first.
+        window.setTitle("International Bank of Froilan");
+        window.setMinWidth(250);
+
+        Label label = new Label();
+        label.setText(message);
+
+        //Create two buttons
+        Button yesButton = new Button ("OK");
+
+        yesButton.setOnAction(e -> {
+            answer = true;
+            window.close();
+        });
+
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, yesButton);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait(); //Works with window.initModality, ensures the user closes the alert window before getting back to the original window.
+
+        return answer;
+
+    }
     public static void closeProgram(Stage window) {
         Boolean answer = display( "Are you sure you want to exit?");
         if(answer) {
